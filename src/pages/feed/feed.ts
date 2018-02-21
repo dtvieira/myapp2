@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
+import { ProviderDefaultProvider } from '../../providers/provider-default/provider-default';
 
 /**
  * Generated class for the FeedPage page.
@@ -14,18 +16,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'feed.html',
 })
 export class FeedPage {
-  public nome_usuario:string = "Daniel Torres Vieira";
-  public num1:number = 1;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  films: Observable<any>;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public providerDefault: ProviderDefaultProvider
+  ) { this.films = this.providerDefault.getFilms();
   }
 
-  public somaDoisNumeros(x:number): void{
-    alert(x+5);
+  openDetails(film) {
+    this.navCtrl.push('FilmDetailsPage', {film: film});
   }
 
   ionViewDidLoad() {
-    //this.somaDoisNumeros(this.num1);
   }
 
 }
